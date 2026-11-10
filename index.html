@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fogó · Cuina de brasa i mercat · Reserva tu mesa</title>
+  <meta name="description" content="Restaurante de cocina a la brasa con producto de mercado. Reserva tu mesa online en segundos.">
+  <meta name="theme-color" content="#1c1a17">
+  <link rel="canonical" href="https://tu-proyecto.vercel.app/">
+
+  <!-- Open Graph (al compartir por WhatsApp/redes) -->
+  <meta property="og:type" content="restaurant">
+  <meta property="og:title" content="Fogó · Reserva tu mesa">
+  <meta property="og:description" content="Cocina a la brasa con producto de mercado. Reserva online en segundos.">
+  <meta property="og:image" content="https://tu-proyecto.vercel.app/img/og-imagen.jpg">
+  <meta property="og:locale" content="es_ES">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231c1a17'/%3E%3Cpath d='M32 12c4 9 13 14 13 26a13 13 0 0 1-26 0c0-7 4-10 6-15 1 4 3 6 5 7 0-6 0-12 2-18z' fill='%23f06a3b'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,50;1,9..144,300..700,50&family=Manrope:wght@400;500;600;700&display=swap">
+
+  <link rel="stylesheet" href="css/tokens.css?v=1">
+  <link rel="stylesheet" href="css/styles.css?v=1">
+
+  <script>document.documentElement.classList.replace("no-js", "js");</script>
+  <script type="module" src="js/main.js?v=1"></script>
+</head>
+<body>
+  <a class="skip" href="#reservar">Ir a reservar</a>
+
+  <!-- ============ CABECERA ============ -->
+  <header class="nav" data-nav>
+    <a class="nav__logo" href="#inicio" aria-label="Inicio" data-r="name">Fogó</a>
+    <nav class="nav__links" aria-label="Principal">
+      <a href="#carta">Carta</a>
+      <a href="#espacio">El espacio</a>
+      <a href="#visitanos">Horario</a>
+    </nav>
+    <a class="btn btn--cta btn--sm" href="#reservar">Reservar mesa</a>
+  </header>
+
+  <main id="inicio">
+    <!-- ============ PORTADA ============ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="hero__inner">
+        <p class="eyebrow eyebrow--osc"><span data-r="tagline">Cuina de brasa i mercat</span></p>
+        <h1 class="hero__title" id="hero-title">
+          <span class="line">Fuego</span>
+          <span class="line line--indent"><em>lento,</em></span>
+          <span class="line">mesa larga.</span>
+        </h1>
+        <!-- Firma: la línea de brasa que nace bajo el titular y termina en el botón -->
+        <svg class="hero__ember" viewBox="0 0 600 120" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="emberGrad" x1="0" x2="1">
+              <stop offset="0" stop-color="#f06a3b" stop-opacity="0"/>
+              <stop offset=".25" stop-color="#f06a3b"/>
+              <stop offset=".8" stop-color="#ffb46b"/>
+              <stop offset="1" stop-color="#f06a3b"/>
+            </linearGradient>
+            <filter id="emberBlur" x="-10%" y="-200%" width="120%" height="500%"><feGaussianBlur stdDeviation="5"/></filter>
+          </defs>
+          <path class="ember-glow" d="M4 70 C 120 20, 210 110, 330 62 S 520 30, 596 78" filter="url(#emberBlur)"/>
+          <path class="ember-line" d="M4 70 C 120 20, 210 110, 330 62 S 520 30, 596 78"/>
+        </svg>
+        <div class="hero__foot">
+          <p class="hero__lead" data-r="description">Cocina a la brasa con producto de mercado.</p>
+          <div class="hero__actions">
+            <a class="btn btn--cta btn--lg" href="#reservar" data-ember-target>Reservar mesa</a>
+            <a class="link-arrow" href="#carta">Ver la carta</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CASA ============ -->
+    <section class="casa section section--claro" aria-labelledby="casa-title">
+      <div class="wrap casa__grid">
+        <div>
+          <p class="eyebrow">La casa</p>
+          <h2 class="h2" id="casa-title" data-reveal>Brasa, mercado<br>y <em>sobremesa.</em></h2>
+        </div>
+        <ol class="principios" data-reveal>
+          <!-- Textos demo: sustitúyelos por los del cliente -->
+          <li><span class="principios__n">01</span><div><h3>Leña de verdad</h3><p>Encina y sarmiento. La brasa marca el ritmo de la cocina y el sabor de cada plato.</p></div></li>
+          <li><span class="principios__n">02</span><div><h3>Producto del día</h3><p>Compramos cada mañana en el mercado. Si no está bueno, no sale a la mesa.</p></div></li>
+          <li><span class="principios__n">03</span><div><h3>Sin prisas</h3><p>Mesas para quedarse. Comer bien también es tener tiempo para la sobremesa.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ CARTA ============ -->
+    <section class="carta section section--claro" id="carta" aria-labelledby="carta-title">
+      <div class="wrap">
+        <div class="carta__head">
+          <p class="eyebrow">Carta</p>
+          <h2 class="h2" id="carta-title" data-reveal>Lo que sale <em>del fuego.</em></h2>
+        </div>
+        <div class="carta__grid" data-menu></div>
+        <p class="carta__note" data-menu-note></p>
+      </div>
+    </section>
+
+    <!-- ============ ESPACIO ============ -->
+    <section class="espacio section section--claro" id="espacio" aria-labelledby="espacio-title">
+      <div class="wrap">
+        <p class="eyebrow">El espacio</p>
+        <h2 class="h2" id="espacio-title" data-reveal>Una sala que<br><em>huele a leña.</em></h2>
+        <div class="galeria" data-gallery></div>
+      </div>
+    </section>
+
+    <!-- ============ RESERVAS ============ -->
+    <section class="reservar section section--osc" id="reservar" aria-labelledby="reservar-title">
+      <div class="wrap reservar__grid">
+        <div class="reservar__intro">
+          <p class="eyebrow eyebrow--osc">Reservas</p>
+          <h2 class="h2" id="reservar-title">Tu mesa, <em>en un minuto.</em></h2>
+          <p class="reservar__text">Elige día, hora y cuántos sois. Recibirás la confirmación por email al momento.</p>
+          <p class="reservar__text reservar__text--small">¿Grupo de más de <span data-r="maxParty">8</span> personas o petición especial? Llámanos al <a data-r-tel href="tel:+34600000000">+34 600 000 000</a>.</p>
+          <p class="demo-badge" hidden data-demo-badge>Modo demo: las reservas se guardan solo en este navegador.</p>
+        </div>
+
+        <div class="ticket" data-booking>
+          <noscript>
+            <p class="ticket__noscript">Para reservar online activa JavaScript, o llámanos y te buscamos mesa.</p>
+          </noscript>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VISÍTANOS ============ -->
+    <section class="visita section section--claro" id="visitanos" aria-labelledby="visita-title">
+      <div class="wrap visita__grid">
+        <div>
+          <p class="eyebrow">Visítanos</p>
+          <h2 class="h2" id="visita-title" data-reveal>Te <em>esperamos.</em></h2>
+          <address class="visita__dir">
+            <span data-r="address">Dirección</span><br>
+            <a class="link-arrow link-arrow--dark" data-r-maps href="#" target="_blank" rel="noopener">Cómo llegar</a>
+          </address>
+        </div>
+        <div class="visita__datos">
+          <h3 class="visita__h">Horario</h3>
+          <dl class="horario" data-hours></dl>
+          <h3 class="visita__h">Contacto</h3>
+          <ul class="contacto">
+            <li><a data-r-tel href="tel:+34600000000">+34 600 000 000</a></li>
+            <li><a data-r-wa href="#" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a data-r-mail href="mailto:reservas@ejemplo.com">reservas@ejemplo.com</a></li>
+            <li data-r-ig-wrap hidden><a data-r-ig href="#" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <p class="footer__logo" data-r="name">Fogó</p>
+      <p class="footer__small">© <span data-year></span> <span data-r="name">Fogó</span> · <a href="privacidad.html">Privacidad</a> · <a href="aviso-legal.html">Aviso legal</a></p>
+    </div>
+  </footer>
+
+  <!-- Barra fija en móvil: se esconde al llegar a la sección de reservas -->
+  <div class="sticky-cta" data-sticky-cta>
+    <a class="btn btn--cta btn--block" href="#reservar">Reservar mesa</a>
+  </div>
+</body>
+</html>

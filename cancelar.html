@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cancelar reserva</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231c1a17'/%3E%3Cpath d='M32 12c4 9 13 14 13 26a13 13 0 0 1-26 0c0-7 4-10 6-15 1 4 3 6 5 7 0-6 0-12 2-18z' fill='%23f06a3b'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,50;1,9..144,300..700,50&family=Manrope:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/tokens.css?v=1">
+  <link rel="stylesheet" href="css/styles.css?v=1">
+  <style>
+    body { background: var(--carbon); min-height: 100svh; display: grid; place-items: center; padding: 24px var(--gutter); }
+    .ticket { width: 100%; max-width: 480px; }
+    .back { display: inline-block; margin-top: 18px; color: var(--texto-suave-osc); }
+  </style>
+  <script>document.documentElement.classList.replace("no-js", "js");</script>
+</head>
+<body>
+  <main style="width:100%;max-width:480px">
+    <div class="ticket" data-cancel>
+      <p>Cargando tu reserva…</p>
+      <noscript><p>Activa JavaScript para cancelar, o llámanos por teléfono.</p></noscript>
+    </div>
+    <a class="back" href="./">← Volver a la web</a>
+  </main>
+
+  <script type="module">
+    import config from "./site.config.js";
+    import { getReservationByToken, cancelByToken } from "./js/api.js";
+    import { formatDateEs } from "./js/booking-core.js";
+
+    const box = document.querySelector("[data-cancel]");
+    const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const token = new URLSearchParams(location.search).get("token") || "";
+    const tel = `tel:${config.restaurant.phone.replace(/[^\d+]/g, "")}`;
+    document.title = `Cancelar reserva · ${config.restaurant.name}`;
+
+    const head = (t) => `<div class="ticket__head"><h1 class="ticket__title">${t}</h1><span class="ticket__step">${esc(config.restaurant.name)}</span></div><div class="ticket__perf" aria-hidden="true"></div>`;
+    const fail = (m) => (box.innerHTML = `${head("Ups")}<p class="msg msg--error">${esc(m)} <a href="${tel}">Llámanos</a>.</p>`);
+
+    async function init() {
+      if (!token) return fail("Este enlace no es válido.");
+      let r;
+      try { r = await getReservationByToken(token); } catch (e) { return fail(e.message); }
+
+      const details = `<ul class="done__list">
+        <li><span>Día</span><strong>${esc(formatDateEs(r.date))}</strong></li>
+        <li><span>Hora</span><strong>${esc(r.time)}</strong></li>
+        <li><span>Personas</span><strong>${esc(r.party)}</strong></li>
+        <li><span>A nombre de</span><strong>${esc(r.name)}</strong></li></ul>`;
+
+      if (r.status === "cancelled") {
+        box.innerHTML = `${head("Reserva cancelada")}${details}<p class="msg">Esta reserva ya estaba cancelada.</p>`;
+        return;
+      }
+      box.innerHTML = `${head("¿Cancelar tu reserva?")}${details}
+        <p class="msg" style="margin-bottom:20px">Al cancelar, la mesa queda libre para otra persona.</p>
+        <button class="btn btn--dark btn--block btn--lg" data-go>Sí, cancelar reserva</button>`;
+      box.querySelector("[data-go]").addEventListener("click", async (e) => {
+        e.target.disabled = true; e.target.textContent = "Cancelando…";
+        try {
+          await cancelByToken(token);
+          box.innerHTML = `${head("Reserva cancelada")}${details}<p class="msg">Hecho. Gracias por avisar: esperamos verte pronto.</p>`;
+        } catch (err) { fail(err.message); }
+      });
+    }
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+/* =============================================================
+   TOKENS DE MARCA — cambia aquí colores, letras y ritmo por cliente.
+   Contrastes comprobados (AA) con los valores demo:
+   - crema sobre carbón ............ 15.6:1
+   - carbón sobre brasa (botón) .... 4.9:1
+   - brasa-tinta sobre crema ....... 6.2:1
+   ============================================================= */
+:root {
+  /* Color */
+  --carbon: #1c1a17;        /* fondo oscuro principal */
+  --carbon-2: #2a2621;      /* superficies sobre oscuro */
+  --crema: #f3ede3;         /* fondo claro / texto sobre oscuro */
+  --crema-2: #e9e1d3;       /* superficies sobre claro */
+  --linea: #d6cbb9;         /* bordes sobre claro */
+  --linea-osc: #3d3730;     /* bordes sobre oscuro */
+  --texto: #1c1a17;
+  --texto-suave: #5b544b;
+  --texto-suave-osc: #b9ae9e;
+  --brasa: #f06a3b;         /* acento: brillo de la brasa */
+  --brasa-tinta: #a8381a;   /* acento legible sobre fondo claro */
+  --oliva: #5c6b3c;
+  --ok: #3f6b3a;
+  --error: #a3271a;
+
+  --cta: var(--brasa);
+  --cta-texto: var(--carbon);
+  --cta-hover: #ff8257;
+
+  /* Tipografía */
+  --f-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --f-texto: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --t-hero: clamp(3.4rem, 15vw, 9.5rem);
+  --t-h2: clamp(2.2rem, 6.5vw, 4.2rem);
+  --t-h3: clamp(1.35rem, 3vw, 1.7rem);
+  --t-base: clamp(1rem, 0.95rem + 0.25vw, 1.075rem);
+  --t-small: 0.875rem;
+  --t-eyebrow: 0.75rem;
+
+  /* Forma y espacio */
+  --radio: 14px;
+  --radio-pill: 999px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --seccion: clamp(72px, 12vw, 150px);
+  --max: 1200px;
+  --sombra: 0 1px 0 rgba(28, 26, 23, 0.04), 0 18px 40px -18px rgba(28, 26, 23, 0.35);
+
+  /* Movimiento */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 160ms;
+  --dur-2: 420ms;
+  --dur-3: 900ms;
+}

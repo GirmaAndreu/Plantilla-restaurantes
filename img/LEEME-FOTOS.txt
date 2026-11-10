@@ -1,0 +1,12 @@
+Fotos que necesita la web (pon los archivos aquí con estos nombres exactos):
+
+  galeria-1.webp    Sala del restaurante       1600 x 1000 px   < 250 KB
+  galeria-2.webp    Plato estrella             1000 x 1250 px   < 200 KB
+  galeria-3.webp    Barra / cocina             1000 x 1250 px   < 200 KB
+  galeria-4.webp    Postre u otro plato        1600 x  900 px   < 200 KB
+  og-imagen.jpg     Imagen al compartir link   1200 x  630 px   < 300 KB
+  apple-touch-icon.png  Icono del móvil         180 x  180 px
+
+Mientras falte una foto, la web muestra un hueco elegante con su nombre.
+Los nombres y textos alternativos se cambian en site.config.js → gallery.
+WebP = formato de imagen ligero; se convierte gratis en squoosh.app.

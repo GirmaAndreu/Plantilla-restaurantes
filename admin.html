@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Panel de reservas</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1c1a17">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231c1a17'/%3E%3Cpath d='M32 12c4 9 13 14 13 26a13 13 0 0 1-26 0c0-7 4-10 6-15 1 4 3 6 5 7 0-6 0-12 2-18z' fill='%23f06a3b'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Manrope:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/tokens.css?v=1">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; overflow-x: clip; font-family: var(--f-texto); background: #f6f2ea; color: var(--texto); font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    .hidden { display: none !important; }
+    .top { position: sticky; top: 0; z-index: 10; background: var(--carbon); color: var(--crema); padding: 12px 16px; display: flex; align-items: center; gap: 12px; justify-content: space-between; }
+    .top h1 { margin: 0; font-family: var(--f-display); font-weight: 500; font-size: 1.25rem; }
+    .top small { color: var(--texto-suave-osc); font-size: 0.8rem; display: block; }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 16px; padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--linea); background: #fff; cursor: pointer; font-weight: 600; font-size: 0.9rem; text-decoration: none; }
+    .btn:active { transform: scale(0.97); }
+    .btn--dark { background: var(--carbon); color: var(--crema); border-color: var(--carbon); }
+    .btn--cta { background: var(--brasa); color: var(--carbon); border-color: var(--brasa); }
+    .btn--ghost-osc { background: transparent; color: var(--crema); border-color: var(--linea-osc); }
+    .btn--danger { color: var(--error); }
+    .btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+    .input { width: 100%; min-height: 46px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--linea); background: #fff; font-size: 16px; }
+    label { font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 6px; }
+
+    /* Login */
+    .login { min-height: 100svh; display: grid; place-items: center; padding: 24px; background: var(--carbon); }
+    .login form { width: 100%; max-width: 360px; background: var(--crema); border-radius: var(--radio); padding: 28px; }
+    .login h1 { font-family: var(--f-display); font-weight: 500; margin: 0 0 4px; font-size: 1.6rem; }
+    .login p { margin: 0 0 20px; color: var(--texto-suave); font-size: 0.9rem; }
+    .err { color: var(--error); font-size: 0.88rem; margin: 10px 0 0; }
+
+    /* Navegación por días */
+    .daynav { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+    .daynav .input { flex: 1; min-width: 0; }
+    .daynav .btn { padding: 0 14px; }
+    .daytitle { font-family: var(--f-display); font-size: 1.5rem; margin: 6px 0 14px; }
+    .daytitle::first-letter { text-transform: uppercase; }
+
+    /* Resumen */
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .stat { background: #fff; border: 1px solid var(--linea); border-radius: 12px; padding: 12px 14px; }
+    .stat b { display: block; font-size: 1.4rem; font-variant-numeric: tabular-nums; }
+    .stat span { font-size: 0.8rem; color: var(--texto-suave); }
+    .bar { height: 6px; border-radius: 6px; background: var(--crema-2); margin-top: 8px; overflow: hidden; }
+    .bar i { display: block; height: 100%; background: var(--brasa); }
+    .stat.is-blocked { background: #f6ded7; border-color: #e7b9ab; }
+
+    .tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .banner { background: #f6ded7; color: var(--error); border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; font-weight: 600; }
+    .demo { background: #fff3c4; color: #5a4600; border-radius: 12px; padding: 10px 14px; margin-bottom: 14px; font-size: 0.85rem; }
+
+    /* Lista */
+    .group h2 { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; margin: 22px 0 8px; color: var(--texto-suave); }
+    .res { background: #fff; border: 1px solid var(--linea); border-radius: 12px; padding: 12px 14px; display: grid; grid-template-columns: 58px 1fr auto; gap: 4px 12px; align-items: start; margin-bottom: 8px; }
+    .res > div { min-width: 0; }
+    .res__name, .res__meta, .res__notes { overflow-wrap: anywhere; }
+    .res__time { font-weight: 700; font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+    .res__party { display: inline-block; background: var(--carbon); color: var(--crema); border-radius: 8px; padding: 0 8px; font-weight: 700; font-size: 0.85rem; margin-top: 4px; }
+    .res__name { font-weight: 700; }
+    .res__meta { font-size: 0.85rem; color: var(--texto-suave); }
+    .res__meta a { color: var(--texto); }
+    .res__notes { font-size: 0.85rem; background: var(--crema); border-radius: 8px; padding: 4px 8px; margin-top: 6px; }
+    .tag { white-space: nowrap; overflow-wrap: normal; display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 1px 6px; border-radius: 6px; background: var(--crema-2); margin-left: 6px; vertical-align: 2px; }
+    .res.is-cancelled { opacity: 0.55; }
+    .res.is-cancelled .res__name { text-decoration: line-through; }
+    .empty { text-align: center; color: var(--texto-suave); padding: 40px 16px; background: #fff; border: 1px dashed var(--linea); border-radius: 12px; }
+
+    /* Modal añadir */
+    dialog { border: 0; border-radius: var(--radio); padding: 0; width: min(520px, calc(100% - 24px)); background: var(--crema); }
+    dialog::backdrop { background: rgba(28, 26, 23, 0.6); }
+    dialog form { padding: 22px; display: grid; gap: 12px; }
+    dialog h3 { margin: 0 0 4px; font-family: var(--f-display); font-weight: 500; font-size: 1.4rem; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .fab { position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 20; min-height: 56px; padding: 0 22px; box-shadow: 0 12px 30px -8px rgba(0,0,0,.45); }
+    .toast { position: fixed; left: 50%; bottom: calc(88px + env(safe-area-inset-bottom)); translate: -50% 0; background: var(--carbon); color: var(--crema); padding: 10px 16px; border-radius: 999px; font-size: 0.9rem; z-index: 30; opacity: 0; transition: opacity .25s; pointer-events: none; }
+    .toast.is-on { opacity: 1; }
+  </style>
+  <script>document.documentElement.classList.replace("no-js", "js");</script>
+</head>
+<body>
+  <!-- Login -->
+  <section class="login" data-login>
+    <form data-login-form>
+      <h1>Panel de reservas</h1>
+      <p data-login-sub>Entra con la contraseña del restaurante.</p>
+      <label for="pw">Contraseña</label>
+      <input class="input" id="pw" type="password" autocomplete="current-password" required>
+      <p class="err hidden" data-login-err></p>
+      <button class="btn btn--dark" style="width:100%;margin-top:16px" type="submit">Entrar</button>
+    </form>
+  </section>
+
+  <!-- Panel -->
+  <div class="hidden" data-app>
+    <header class="top">
+      <div><h1 data-name>Reservas</h1><small>Panel del restaurante</small></div>
+      <button class="btn btn--ghost-osc" data-logout>Salir</button>
+    </header>
+    <main class="wrap">
+      <p class="demo hidden" data-demo>Modo demo: los datos viven solo en este navegador. <button class="btn" style="min-height:32px;margin-left:6px" data-reset>Reiniciar demo</button></p>
+      <div class="daynav">
+        <button class="btn" data-prev aria-label="Día anterior">‹</button>
+        <input class="input" type="date" data-date aria-label="Fecha">
+        <button class="btn" data-next aria-label="Día siguiente">›</button>
+        <button class="btn" data-today>Hoy</button>
+      </div>
+      <h2 class="daytitle" data-daytitle></h2>
+      <div data-banner></div>
+      <div class="stats" data-stats></div>
+      <div class="tools" data-tools></div>
+      <div data-list></div>
+    </main>
+    <button class="btn btn--cta fab" data-add>+ Añadir reserva</button>
+  </div>
+
+  <dialog data-dialog>
+    <form method="dialog" data-add-form>
+      <h3>Nueva reserva</h3>
+      <p style="margin:0;color:var(--texto-suave);font-size:.88rem">Para reservas por teléfono o en persona. Cuentan para el aforo.</p>
+      <div class="row2">
+        <div><label for="a-time">Hora</label><select class="input" id="a-time" name="time" required></select></div>
+        <div><label for="a-party">Personas</label><input class="input" id="a-party" name="party" type="number" min="1" max="200" value="2" required></div>
+      </div>
+      <div><label for="a-name">Nombre</label><input class="input" id="a-name" name="name" required maxlength="80"></div>
+      <div class="row2">
+        <div><label for="a-phone">Teléfono</label><input class="input" id="a-phone" name="phone" type="tel" required></div>
+        <div><label for="a-email">Email (opcional)</label><input class="input" id="a-email" name="email" type="email"></div>
+      </div>
+      <div><label for="a-notes">Notas</label><input class="input" id="a-notes" name="notes" maxlength="500"></div>
+      <p class="err hidden" data-add-err></p>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:6px">
+        <button class="btn" value="cancel" formnovalidate>Cerrar</button>
+        <button class="btn btn--dark" value="save" data-save>Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" data-toast role="status"></div>
+
+  <script type="module" src="js/admin.js?v=1"></script>
+</body>
+</html>
